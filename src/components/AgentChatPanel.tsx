@@ -35,12 +35,13 @@ export const AgentChatPanel = ({ isVisible }: AgentChatPanelProps) => {
         </Button>
       </div>
       <div className="flex-1 overflow-hidden relative">
-        <iframe
+        {/* <iframe
           ref={iframeRef}
           src="http://localhost:7681"
           className="w-full h-full border-0 absolute inset-0"
           title="Agent Chat"
-        />
+        /> */}
+        No more iframe2
       </div>
     </aside>
   );
