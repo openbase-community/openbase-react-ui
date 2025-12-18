@@ -12,4 +12,3 @@ export * from "./ProjectRoutesWithChat";
 export * from "./SerializersView";
 export * from "./TasksView";
 export * from "./WebAppView";
-export * from "./ui/index";
