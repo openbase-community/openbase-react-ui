@@ -1,0 +1,21 @@
+{
+  "name": "openbase-react-ui",
+  "version": "1.2.0",
+  "description": "Shared components between Openbase CLI React app and Openbase Cloud React app",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "barrels": "barrelsby src --location all --delete",
+    "dev": "concurrently \"npm run barrels -- --watch\" \"tsc --watch\"",
+    "build": "npm run barrels && tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "barrelsby": "^2.8.1",
+    "concurrently": "^9.2.1",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [],
+  "author": "Gabe Montague",
+  "license": "MIT"
+}
