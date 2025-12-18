@@ -7,7 +7,7 @@
   "scripts": {
     "barrels": "barrelsby src --location all --delete --exclude index.ts",
     "build": "npm run barrels && tsc && tsc-alias",
-    "dev": "concurrently \"barrelsby src --location all --delete --exclude index.ts --watch\" \"tsc --watch --preserveWatchOutput\" \"tsc-alias --watch\""
+    "dev": "concurrently \"barrelsby src --location all --delete --exclude index.ts --watch\" \"tsc --watch --preserveWatchOutput --skipLibCheck --noEmitOnError false\" \"tsc-alias --watch\""
   },
   "peerDependencies": {
     "@hookform/resolvers": "^3.9.0",

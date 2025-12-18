@@ -3,4 +3,5 @@
  */
 
 export * from "./use-apps";
+export * from "./use-chat-api";
 export * from "./use-mobile";

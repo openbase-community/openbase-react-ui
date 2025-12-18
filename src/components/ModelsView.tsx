@@ -8,13 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useProject } from "@/contexts/ProjectContext";
 import { useApps } from "@/hooks/use-apps";
-import { toast } from "sonner";
 import { getDisplayDocstring, getEmojiFromDocstring } from "@/lib/emoji-utils";
 import { Code, Database, Eye, Loader2 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { toast } from "sonner";
 import { ModelField } from "./ModelField";
 
 interface ModelMethod {
@@ -92,12 +92,11 @@ export const ModelsView = ({ appName }: ModelsViewProps) => {
   // Get the model to expand from query parameters
   const expandModel = searchParams.get("expand");
 
-
   const fetchData = useCallback(async () => {
     console.log("🔄 fetchData called for app:", appName);
     setLoading(true);
     const packageName = getPackageNameForApp(appName);
-    
+
     if (!packageName) {
       console.error(`Package name not found for app: ${appName}`);
       toast.error("Error", {
@@ -106,10 +105,12 @@ export const ModelsView = ({ appName }: ModelsViewProps) => {
       setLoading(false);
       return;
     }
-    
+
     try {
       const [modelsResponse, serializersResponse] = await Promise.all([
-        fetch(`/api/openbase/projects/${projectId}/packages/${packageName}/apps/${appName}/models/`),
+        fetch(
+          `/api/openbase/projects/${projectId}/packages/${packageName}/apps/${appName}/models/`
+        ),
         fetch(
           `/api/openbase/projects/${projectId}/packages/${packageName}/apps/${appName}/serializers/`
         ),
@@ -122,9 +123,15 @@ export const ModelsView = ({ appName }: ModelsViewProps) => {
       const modelsData = await modelsResponse.json();
       const serializersData = await serializersResponse.json();
 
-      const newModels = Array.isArray(modelsData) ? modelsData : (modelsData.models || []);
-      const newSerializers = Array.isArray(serializersData) ? serializersData : (serializersData.serializers || []);
-      const newDjangoRoot = Array.isArray(modelsData) ? "" : (modelsData.django_root || "");
+      const newModels = Array.isArray(modelsData)
+        ? modelsData
+        : modelsData.models || [];
+      const newSerializers = Array.isArray(serializersData)
+        ? serializersData
+        : serializersData.serializers || [];
+      const newDjangoRoot = Array.isArray(modelsData)
+        ? ""
+        : modelsData.django_root || "";
 
       console.log("📊 Fetched models data:", {
         modelsCount: newModels.length,
@@ -134,7 +141,6 @@ export const ModelsView = ({ appName }: ModelsViewProps) => {
       setModels(newModels);
       setSerializers(newSerializers);
       setDjangoRoot(newDjangoRoot);
-
     } catch (error) {
       console.error("Failed to fetch models data:", error);
       toast.error("Error", {
@@ -210,7 +216,6 @@ export const ModelsView = ({ appName }: ModelsViewProps) => {
 
   return (
     <div className="space-y-6">
-
       <p>
         Models are tables in the database. They contain fields, which are
         columns in the table. Use Django models to store data in the backend
