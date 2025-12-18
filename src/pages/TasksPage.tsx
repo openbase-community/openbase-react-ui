@@ -12,4 +12,4 @@ const TasksPage = () => {
   );
 };
 
-export default TasksPage;
+export { TasksPage };

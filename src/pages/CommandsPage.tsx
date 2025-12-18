@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useProject } from "@/contexts/ProjectContext";
 import { useApps } from "@/hooks/use-apps";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { buildAppApiUrl } from "@/lib/api-utils";
 import { Loader2, Settings, Terminal, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -73,10 +73,8 @@ const CommandsPage = () => {
     const packageName = getPackageNameForApp(appName);
     if (!packageName) {
       console.error(`Package name not found for app: ${appName}`);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: `Package name not found for app: ${appName}`,
-        variant: "destructive",
       });
       setLoading(false);
       return;
@@ -94,10 +92,8 @@ const CommandsPage = () => {
       setCommands(Array.isArray(data) ? data : (data.commands || []));
     } catch (error) {
       console.error("Failed to fetch commands:", error);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "Failed to fetch commands data",
-        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -131,10 +127,8 @@ const CommandsPage = () => {
         `Failed to fetch command details for ${commandName}:`,
         error
       );
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: `Failed to fetch details for command ${commandName}`,
-        variant: "destructive",
       });
     } finally {
       setLoadingDetails((prev) => {
@@ -163,10 +157,8 @@ const CommandsPage = () => {
     const packageName = getPackageNameForApp(appName);
     if (!packageName) {
       console.error(`Package name not found for app: ${appName}`);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: `Package name not found for app: ${appName}`,
-        variant: "destructive",
       });
       return;
     }
@@ -198,17 +190,14 @@ const CommandsPage = () => {
         return newDetails;
       });
 
-      toast({
-        title: "Success",
+      toast.success("Success", {
         description:
           data.message || `Command ${commandToDelete} deleted successfully`,
       });
     } catch (error) {
       console.error(`Failed to delete command ${commandToDelete}:`, error);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: `Failed to delete command ${commandToDelete}`,
-        variant: "destructive",
       });
     } finally {
       setDeleting(false);
@@ -448,4 +437,4 @@ const CommandsPage = () => {
   );
 };
 
-export default CommandsPage;
+export { CommandsPage };

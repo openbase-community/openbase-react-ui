@@ -61,4 +61,4 @@ const ProjectHome = () => {
   );
 };
 
-export default ProjectHome;
+export { ProjectHome };

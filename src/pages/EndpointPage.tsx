@@ -70,4 +70,4 @@ const EndpointPage = () => {
   );
 };
 
-export default EndpointPage;
+export { EndpointPage };

@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { useProject } from "@/contexts/ProjectContext";
 import { useApps } from "@/hooks/use-apps";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { buildAppApiUrl } from "@/lib/api-utils";
 import { getEmojiFromDocstring } from "@/lib/emoji-utils";
 import {
@@ -164,10 +164,8 @@ export const ModelsRelationshipsView = ({
 
     } catch (error) {
       console.error("Failed to fetch models:", error);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "Failed to fetch models data",
-        variant: "destructive",
       });
     } finally {
       setLoading(false);

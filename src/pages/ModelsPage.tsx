@@ -97,4 +97,4 @@ const ModelsPage = () => {
   );
 };
 
-export default ModelsPage;
+export { ModelsPage };

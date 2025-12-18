@@ -93,4 +93,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export { AdminPage };

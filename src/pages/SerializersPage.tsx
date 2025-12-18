@@ -16,4 +16,4 @@ const SerializersPage = () => {
   );
 };
 
-export default SerializersPage;
+export { SerializersPage };

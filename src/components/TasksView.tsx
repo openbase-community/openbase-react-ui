@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useProject } from "@/contexts/ProjectContext";
 import { useApps } from "@/hooks/use-apps";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { buildAppApiUrl } from "@/lib/api-utils";
 import { Clock, Loader2, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -56,10 +56,8 @@ export const TasksView = ({ appName }: TasksViewProps) => {
     
     if (!packageName) {
       console.error(`Package name not found for app: ${appName}`);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: `Package name not found for app: ${appName}`,
-        variant: "destructive",
       });
       setLoading(false);
       return;
@@ -76,10 +74,8 @@ export const TasksView = ({ appName }: TasksViewProps) => {
       setTasks(Array.isArray(data) ? data : (data.tasks || []));
     } catch (error) {
       console.error("Failed to fetch tasks:", error);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "Failed to fetch tasks data",
-        variant: "destructive",
       });
     } finally {
       setLoading(false);

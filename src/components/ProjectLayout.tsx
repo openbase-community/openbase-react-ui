@@ -35,7 +35,6 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAgentChat } from "@/contexts/AgentChatContext";
 import { useProject } from "@/contexts/ProjectContext";
-import { toast } from "@/hooks/use-toast";
 import {
   Code,
   Database,
@@ -50,14 +49,15 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CodeView } from "./CodeView";
-import { DevServerCodeView } from "./DevServerCodeView";
+import { toast } from "sonner";
+// import { DevServerCodeView } from "./DevServerCodeView";
 import { WebAppView } from "./WebAppView";
 
 interface AppInfo {
   name: string;
   path: string;
   apps_dir: string;
+  package_name: string;
 }
 
 interface CreateAppInfo {
@@ -175,11 +175,9 @@ export const ProjectLayout = ({
       setApps(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Failed to fetch apps:", error);
-      toast({
-        title: "Connection Error",
+      toast.error("Connection Error", {
         description:
           "Failed to connect to the meta-server. Make sure it's running.",
-        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -207,29 +205,23 @@ export const ProjectLayout = ({
       }
     } catch (error) {
       console.error("Failed to fetch create app info:", error);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "Failed to fetch app creation information.",
-        variant: "destructive",
       });
     }
   };
 
   const handleCreateApp = async () => {
     if (!newAppName.trim()) {
-      toast({
-        title: "Validation Error",
+      toast.error("Validation Error", {
         description: "App name is required.",
-        variant: "destructive",
       });
       return;
     }
 
     if (!selectedDirectory) {
-      toast({
-        title: "Validation Error",
+      toast.error("Validation Error", {
         description: "Please select a directory.",
-        variant: "destructive",
       });
       return;
     }
@@ -270,8 +262,7 @@ export const ProjectLayout = ({
         throw new Error(data.error || `HTTP error! status: ${response.status}`);
       }
 
-      toast({
-        title: "Success",
+      toast.success("Success", {
         description: data.message,
       });
 
@@ -285,11 +276,9 @@ export const ProjectLayout = ({
       await fetchApps();
     } catch (error) {
       console.error("Failed to create app:", error);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description:
           error instanceof Error ? error.message : "Failed to create app.",
-        variant: "destructive",
       });
     } finally {
       setIsCreatingApp(false);
@@ -394,14 +383,14 @@ export const ProjectLayout = ({
                 >
                   Preview
                 </TabsTrigger>
-                {!import.meta.env.VITE_IS_CLOUD && (
+                {/* {!import.meta.env.VITE_IS_CLOUD && (
                   <TabsTrigger
                     value="code"
                     className="data-[state=active]:bg-background data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none border-b-2 border-transparent px-2 py-1 text-xs"
                   >
                     Code?
                   </TabsTrigger>
-                )}
+                )} */}
                 <TabsTrigger
                   value="dev-server-code"
                   className="data-[state=active]:bg-background data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none border-b-2 border-transparent px-2 py-1 text-xs"
@@ -456,7 +445,7 @@ export const ProjectLayout = ({
             >
               {webAppTabVisited && <WebAppView appName={appName} />}
             </div>
-            {!import.meta.env.VITE_IS_CLOUD && (
+            {/* {!import.meta.env.VITE_IS_CLOUD && (
               <div
                 className={`space-y-4 bg-muted/50 p-6 flex-1 ${
                   activeTab === "code" ? "block" : "hidden"
@@ -464,14 +453,15 @@ export const ProjectLayout = ({
               >
                 {codeTabVisited && <CodeView appName={appName} />}
               </div>
-            )}
+            )} */}
             <div
               className={`space-y-4 bg-muted/50 p-6 flex-1 ${
                 activeTab === "dev-server-code" ? "block" : "hidden"
               }`}
             >
               {devServerCodeTabVisited && (
-                <DevServerCodeView appName={appName} />
+                <div>Dev Server Code</div>
+                // <DevServerCodeView appName={appName} />
               )}
             </div>
           </Tabs>

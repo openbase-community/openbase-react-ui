@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useProject } from "@/contexts/ProjectContext";
 import { useApps } from "@/hooks/use-apps";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { buildAppApiUrl } from "@/lib/api-utils";
 import { Code2, ExternalLink, Globe, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -99,10 +99,8 @@ const EndpointsPage = () => {
     const packageName = getPackageNameForApp(appName);
     if (!packageName) {
       console.error(`Package name not found for app: ${appName}`);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: `Package name not found for app: ${appName}`,
-        variant: "destructive",
       });
       setLoading(false);
       return;
@@ -193,10 +191,8 @@ const EndpointsPage = () => {
       setDjangoRoot(Array.isArray(views) ? "" : (views.django_root || ""));
     } catch (error) {
       console.error("Failed to fetch endpoints data:", error);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "Failed to fetch endpoints data",
-        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -489,4 +485,4 @@ const EndpointsPage = () => {
   );
 };
 
-export default EndpointsPage;
+export { EndpointsPage };

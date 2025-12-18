@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useProject } from "@/contexts/ProjectContext";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Database, Loader2, Shield, User } from "lucide-react";
 import { useState } from "react";
 
@@ -26,19 +26,15 @@ const ProjectSettingsPage = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      toast({
-        title: "Password Mismatch",
+      toast.error("Password Mismatch", {
         description: "Passwords do not match. Please check and try again.",
-        variant: "destructive",
       });
       return;
     }
 
     if (!email || !password) {
-      toast({
-        title: "Missing Information",
+      toast.error("Missing Information", {
         description: "Please provide both email and password.",
-        variant: "destructive",
       });
       return;
     }
@@ -69,10 +65,8 @@ const ProjectSettingsPage = () => {
 
       const data = await response.json();
 
-      toast({
-        title: "Success!",
+      toast.success("Success!", {
         description: data.message || "Superuser created successfully.",
-        variant: "default",
       });
 
       // Reset form
@@ -81,13 +75,11 @@ const ProjectSettingsPage = () => {
       setConfirmPassword("test");
     } catch (error) {
       console.error("Failed to create superuser:", error);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description:
           error instanceof Error
             ? error.message
             : "Failed to create superuser. Please check the server connection.",
-        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -122,23 +114,19 @@ const ProjectSettingsPage = () => {
       const data = await response.json();
 
       if (data.success) {
-        toast({
-          title: "Migration Complete!",
+        toast.success("Migration Complete!", {
           description: "Database migrations completed successfully.",
-          variant: "default",
         });
       } else {
         throw new Error(data.stderr || "Migration failed");
       }
     } catch (error) {
       console.error("Failed to run migrations:", error);
-      toast({
-        title: "Migration Error",
+      toast.error("Migration Error", {
         description:
           error instanceof Error
             ? error.message
             : "Failed to run migrations. Please check the server connection.",
-        variant: "destructive",
       });
     } finally {
       setMigrateLoading(false);
@@ -290,4 +278,4 @@ const ProjectSettingsPage = () => {
   );
 };
 
-export default ProjectSettingsPage;
+export { ProjectSettingsPage };

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useProject } from "@/contexts/ProjectContext";
 import { useApps } from "@/hooks/use-apps";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { getDisplayDocstring, getEmojiFromDocstring } from "@/lib/emoji-utils";
 import { Code, Database, Eye, Loader2 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -100,10 +100,8 @@ export const ModelsView = ({ appName }: ModelsViewProps) => {
     
     if (!packageName) {
       console.error(`Package name not found for app: ${appName}`);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: `Package name not found for app: ${appName}`,
-        variant: "destructive",
       });
       setLoading(false);
       return;
@@ -139,10 +137,8 @@ export const ModelsView = ({ appName }: ModelsViewProps) => {
 
     } catch (error) {
       console.error("Failed to fetch models data:", error);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "Failed to fetch models and serializers data",
-        variant: "destructive",
       });
     } finally {
       setLoading(false);

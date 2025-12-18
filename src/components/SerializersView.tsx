@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useProject } from "@/contexts/ProjectContext";
 import { useApps } from "@/hooks/use-apps";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { buildAppApiUrl } from "@/lib/api-utils";
 import { Code, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -38,10 +38,8 @@ export const SerializersView = ({ appName }: SerializersViewProps) => {
     
     if (!packageName) {
       console.error(`Package name not found for app: ${appName}`);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: `Package name not found for app: ${appName}`,
-        variant: "destructive",
       });
       setLoading(false);
       return;
@@ -60,10 +58,8 @@ export const SerializersView = ({ appName }: SerializersViewProps) => {
       setSerializers(Array.isArray(data) ? data : (data.serializers || []));
     } catch (error) {
       console.error("Failed to fetch serializers data:", error);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "Failed to fetch serializers data",
-        variant: "destructive",
       });
     } finally {
       setLoading(false);
