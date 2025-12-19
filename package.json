@@ -2,8 +2,16 @@
   "name": "openbase-react-ui",
   "version": "1.2.0",
   "description": "Shared components between Openbase CLI React app and Openbase Cloud React app",
+  "type": "module",
   "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "scripts": {
     "barrels": "barrelsby src --location all --delete --exclude index.ts",
     "build": "npm run barrels && tsc && tsc-alias",
@@ -50,7 +58,7 @@
     "input-otp": "^1.2.4",
     "lucide-react": "^0.462.0",
     "next-themes": "^0.3.0",
-    "openbase-react-shared": "^1.0.0",
+    "openbase-react-shared": "github:openbase-community/react-shared#main",
     "react": "^18.3.1",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.3.1",
