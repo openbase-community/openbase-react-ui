@@ -15,6 +15,7 @@
   "scripts": {
     "barrels": "barrelsby src --location all --delete --exclude index.ts",
     "build": "npm run barrels && tsc && tsc-alias",
+    "prepare": "npm run build",
     "dev": "concurrently \"barrelsby src --location all --delete --exclude index.ts --watch\" \"tsc --watch --preserveWatchOutput --skipLibCheck --noEmitOnError false\" \"tsc-alias --watch\""
   },
   "peerDependencies": {
