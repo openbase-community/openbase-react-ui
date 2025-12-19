@@ -1,6 +1,6 @@
 {
   "name": "openbase-react-ui",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Shared components between Openbase CLI React app and Openbase Cloud React app",
   "type": "module",
   "main": "./dist/index.js",
@@ -89,5 +89,9 @@
   },
   "keywords": [],
   "author": "Gabe Montague",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openbase-community/openbase-react-ui"
+  }
 }
