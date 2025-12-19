@@ -131,9 +131,9 @@ export const ProjectLayout = ({
   const [isCreatingApp, setIsCreatingApp] = useState(false);
   const [activeTab, setActiveTab] = useState("api");
   const [webAppTabVisited, setWebAppTabVisited] = useState(false);
-  const [codeTabVisited, setCodeTabVisited] = useState(false);
-  const [claudeCodeTabVisited, setClaudeCodeTabVisited] = useState(false);
-  const [devServerCodeTabVisited, setDevServerCodeTabVisited] = useState(false);
+  //   const [codeTabVisited, setCodeTabVisited] = useState(false);
+  //   const [claudeCodeTabVisited, setClaudeCodeTabVisited] = useState(false);
+  //   const [devServerCodeTabVisited, setDevServerCodeTabVisited] = useState(false);
 
   const navigate = useNavigate();
 
@@ -359,12 +359,6 @@ export const ProjectLayout = ({
               setActiveTab(value);
               if (value === "webapp") {
                 setWebAppTabVisited(true);
-              } else if (value === "code") {
-                setCodeTabVisited(true);
-              } else if (value === "claude-code") {
-                setClaudeCodeTabVisited(true);
-              } else if (value === "dev-server-code") {
-                setDevServerCodeTabVisited(true);
               }
             }}
             className="w-full flex flex-col flex-1"
@@ -391,12 +385,6 @@ export const ProjectLayout = ({
                     Code?
                   </TabsTrigger>
                 )} */}
-                <TabsTrigger
-                  value="dev-server-code"
-                  className="data-[state=active]:bg-background data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none border-b-2 border-transparent px-2 py-1 text-xs"
-                >
-                  Code
-                </TabsTrigger>
               </TabsList>
               {!isAgentChatVisible && (
                 <Button
@@ -454,7 +442,7 @@ export const ProjectLayout = ({
                 {codeTabVisited && <CodeView appName={appName} />}
               </div>
             )} */}
-            <div
+            {/* <div
               className={`space-y-4 bg-muted/50 p-6 flex-1 ${
                 activeTab === "dev-server-code" ? "block" : "hidden"
               }`}
@@ -463,7 +451,7 @@ export const ProjectLayout = ({
                 <div>Dev Server Code</div>
                 // <DevServerCodeView appName={appName} />
               )}
-            </div>
+            </div> */}
           </Tabs>
         </main>
 
