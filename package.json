@@ -1,6 +1,6 @@
 {
   "name": "openbase-react-ui",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "Shared components between Openbase CLI React app and Openbase Cloud React app",
   "type": "module",
   "main": "./dist/index.js",
