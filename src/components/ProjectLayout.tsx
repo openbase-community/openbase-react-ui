@@ -151,27 +151,22 @@ export const ProjectLayout = ({
   ];
 
   useEffect(() => {
-    console.log("ProjectLayout useEffect - projectId:", projectId);
     fetchApps();
   }, [projectId]);
 
   const fetchApps = async () => {
-    console.log("fetchApps called with projectId:", projectId);
     if (!projectId) {
-      console.log("No projectId available, skipping fetch");
       setLoading(false);
       return;
     }
 
     try {
       const url = `/api/openbase/projects/${projectId}/apps/`;
-      console.log("Fetching apps from:", url);
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      console.log("Apps fetched successfully:", data);
       setApps(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Failed to fetch apps:", error);

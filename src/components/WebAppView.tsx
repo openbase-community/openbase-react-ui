@@ -21,21 +21,9 @@ export const WebAppView = ({ appName }: WebAppViewProps) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log(
-      "WebAppView useEffect - appName:",
-      appName,
-      "projectId:",
-      projectId
-    );
-
     if (projectId) {
-      console.log(
-        "WebAppView - fetching project data for projectId:",
-        projectId
-      );
       fetchProjectPreviewUrl();
     } else {
-      console.log("WebAppView - no projectId, using localhost");
       setPreviewUrl("http://localhost");
     }
   }, [projectId]);
@@ -44,33 +32,22 @@ export const WebAppView = ({ appName }: WebAppViewProps) => {
     if (!projectId) return;
 
     const apiUrl = `/api/openbase/projects/${projectId}/`;
-    console.log("WebAppView - fetching from URL:", apiUrl);
 
     setLoading(true);
     setError(null);
 
     try {
       const response = await fetch(apiUrl);
-      console.log("WebAppView - response status:", response.status);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data: ProjectData = await response.json();
-      console.log("WebAppView - received data:", data);
 
       if (data.dev_server && data.dev_server.preview_url) {
-        console.log(
-          "WebAppView - setting preview URL:",
-          data.dev_server.preview_url
-        );
         setPreviewUrl(data.dev_server.preview_url);
       } else {
-        console.log(
-          "WebAppView - no preview_url found in data.dev_server:",
-          data.dev_server
-        );
         throw new Error("Preview URL not found in dev_server data");
       }
     } catch (error) {
@@ -83,16 +60,6 @@ export const WebAppView = ({ appName }: WebAppViewProps) => {
       setLoading(false);
     }
   };
-
-  // Log the current state
-  console.log(
-    "WebAppView - current state - previewUrl:",
-    previewUrl,
-    "loading:",
-    loading,
-    "error:",
-    error
-  );
 
   if (loading) {
     return (
@@ -126,7 +93,6 @@ export const WebAppView = ({ appName }: WebAppViewProps) => {
     );
   }
 
-  console.log("WebAppView - rendering iframe with URL:", previewUrl);
   return (
     <div className="w-full h-full">
       <iframe
